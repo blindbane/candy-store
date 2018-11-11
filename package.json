@@ -1,0 +1,9 @@
+{
+  "name": "candy-store",
+  "version": "1.0.0",
+  "description": "a candy store app",
+  "main": "index.js",
+  "repository": "https://github.com/blindbane/candy-store.git",
+  "author": "Aidan Bane <aidanfbane@gmail.com>",
+  "license": "MIT"
+}
