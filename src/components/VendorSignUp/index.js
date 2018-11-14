@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import TextInput from "../atoms/TextInput";
+import ComboBox from "../atoms/ComboBox";
 import "./VendorSignUp.css";
 
 class VendorSignUp extends Component {
@@ -75,6 +76,7 @@ class VendorSignUp extends Component {
             handleChange={this.handleInputChange}
             label="Candy Specialty"
           />
+          <ComboBox />
         </form>
       </div>
     );
