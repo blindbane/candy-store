@@ -1,4 +1,4 @@
-# candy-shop
+# candy-shop | [![Build Status](https://travis-ci.com/blindbane/candy-store.svg?token=DKLqBLhiqQWoypcitbL5&branch=master)](https://travis-ci.com/blindbane/candy-store)
 
 ## Table of Contents
 
@@ -11,6 +11,7 @@
 ## Usage
 
 > yarn build
+
 > yarn start
 
 ## Roadmap
