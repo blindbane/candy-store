@@ -13,11 +13,13 @@ const DropdownIndicator = props => {
   );
 };
 
-export default () => (
+export default ({ id, handleChange }) => (
   <Select
-    closeMenuOnSelect={true}
+    name={id}
     components={{ DropdownIndicator }}
-    isMulti
     options={colourOptions}
+    closeMenuOnSelect={false}
+    isMulti
+    onChange={handleChange}
   />
 );

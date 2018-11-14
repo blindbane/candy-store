@@ -12,7 +12,7 @@ class VendorSignUp extends Component {
     company: "",
     webAddress: "",
     phoneNumber: "",
-    candySpecialty: "",
+    candySpecialty: [],
     dateAdded: ""
   };
 
@@ -27,8 +27,22 @@ class VendorSignUp extends Component {
       .catch(err => {});
   }
 
-  handleInputChange = ({ target: { value, name } }) => {
+  handleChange = ({ target: { value, name } }) => {
     this.setState({ [name]: value });
+  };
+
+  handleSelect = candySpecialty => {
+    this.setState({
+      candySpecialty
+    });
+  };
+
+  handleSubmit = e => {
+    console.log("SUBMIT BUTTON CLICK", {
+      ...this.state,
+      dateAdded: new Date()
+    });
+    e.preventDefault();
   };
 
   render() {
@@ -38,8 +52,7 @@ class VendorSignUp extends Component {
       lastName,
       company,
       webAddress,
-      phoneNumber,
-      candySpecialty
+      phoneNumber
     } = this.state;
     return (
       <div className="VendorSignUp">
@@ -49,34 +62,35 @@ class VendorSignUp extends Component {
           <TextInput
             id="firstName"
             value={firstName}
-            handleChange={this.handleInputChange}
+            handleChange={this.handleChange}
             label="First Name"
           />
           <TextInput
             id="lastName"
             value={lastName}
-            handleChange={this.handleInputChange}
+            handleChange={this.handleChange}
             label="Last Name"
           />
           <TextInput
             id="company"
             value={company}
-            handleChange={this.handleInputChange}
+            handleChange={this.handleChange}
             label="Company"
           />
           <TextInput
             id="webAddress"
             value={webAddress}
-            handleChange={this.handleInputChange}
+            handleChange={this.handleChange}
             label="Web Address"
           />
           <TextInput
-            id="candySpecialty"
-            value={candySpecialty}
-            handleChange={this.handleInputChange}
-            label="Candy Specialty"
+            id="phoneNumber"
+            value={phoneNumber}
+            handleChange={this.handleChange}
+            label="Phone Number"
           />
-          <ComboBox />
+          <ComboBox id="candySpecialty" handleChange={this.handleSelect} />
+          <input type="submit" value="Submit" />
         </form>
       </div>
     );
