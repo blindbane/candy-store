@@ -62,3 +62,6 @@ typings/
 
 # build artifacts
 dist/
+
+# macos
+.DS_Store

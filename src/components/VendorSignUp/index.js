@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios";
+import TextInput from "../atoms/TextInput";
+import ComboBox from "../atoms/ComboBox";
 import "./VendorSignUp.css";
 
 class VendorSignUp extends Component {
   state = {
-    hello: null
+    hello: null,
+    firstName: "",
+    lastName: "",
+    company: "",
+    webAddress: "",
+    phoneNumber: "",
+    candySpecialty: [],
+    dateAdded: ""
   };
 
   componentDidMount() {
@@ -15,17 +24,74 @@ class VendorSignUp extends Component {
           hello
         });
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => {});
   }
 
+  handleChange = ({ target: { value, name } }) => {
+    this.setState({ [name]: value });
+  };
+
+  handleSelect = candySpecialty => {
+    this.setState({
+      candySpecialty
+    });
+  };
+
+  handleSubmit = e => {
+    console.log("SUBMIT BUTTON CLICK", {
+      ...this.state,
+      dateAdded: new Date()
+    });
+    e.preventDefault();
+  };
+
   render() {
-    const { hello } = this.state;
+    const {
+      hello,
+      firstName,
+      lastName,
+      company,
+      webAddress,
+      phoneNumber
+    } = this.state;
     return (
       <div className="VendorSignUp">
         VendorSignUp.js
         <h1>Hello, {hello || "..."}</h1>
+        <form onSubmit={this.handleSubmit}>
+          <TextInput
+            id="firstName"
+            value={firstName}
+            handleChange={this.handleChange}
+            label="First Name"
+          />
+          <TextInput
+            id="lastName"
+            value={lastName}
+            handleChange={this.handleChange}
+            label="Last Name"
+          />
+          <TextInput
+            id="company"
+            value={company}
+            handleChange={this.handleChange}
+            label="Company"
+          />
+          <TextInput
+            id="webAddress"
+            value={webAddress}
+            handleChange={this.handleChange}
+            label="Web Address"
+          />
+          <TextInput
+            id="phoneNumber"
+            value={phoneNumber}
+            handleChange={this.handleChange}
+            label="Phone Number"
+          />
+          <ComboBox id="candySpecialty" handleChange={this.handleSelect} />
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     );
   }
