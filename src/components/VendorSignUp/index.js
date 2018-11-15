@@ -6,7 +6,7 @@ import "./VendorSignUp.css";
 
 class VendorSignUp extends Component {
   state = {
-    hello: null,
+    submitError: null,
     firstName: "",
     lastName: "",
     company: "",
@@ -18,13 +18,15 @@ class VendorSignUp extends Component {
 
   componentDidMount() {
     axios
-      .get("https://rnb57ee82f.execute-api.us-east-1.amazonaws.com/dev/api")
-      .then(({ data: { hello } }) => {
-        this.setState({
-          hello
-        });
+      .get(
+        "https://rnb57ee82f.execute-api.us-east-1.amazonaws.com/dev/vendors/lol3"
+      )
+      .then(res => {
+        console.log(res);
       })
-      .catch(err => {});
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   handleChange = ({ target: { value, name } }) => {
@@ -38,26 +40,54 @@ class VendorSignUp extends Component {
   };
 
   handleSubmit = e => {
-    console.log("SUBMIT BUTTON CLICK", {
-      ...this.state,
-      dateAdded: new Date()
-    });
+    const { company, webAddress } = this.state;
+    if (company && webAddress) {
+      const vendorId = `${company}${webAddress.replace(".", "")}`;
+      const submitBody = {
+        ...this.state,
+        vendorId,
+        dateAdded: new Date()
+      };
+      console.log(submitBody);
+      axios
+        .post(
+          "https://rnb57ee82f.execute-api.us-east-1.amazonaws.com/dev/vendors",
+          submitBody
+        )
+        .then(res => {
+          console.log(res);
+          this.setState({
+            submitError: null,
+            firstName: "",
+            lastName: "",
+            company: "",
+            webAddress: "",
+            phoneNumber: "",
+            candySpecialty: [],
+            dateAdded: ""
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      this.setState({ submitError: "There was an error submitting." });
+    }
     e.preventDefault();
   };
 
   render() {
     const {
-      hello,
       firstName,
       lastName,
       company,
       webAddress,
-      phoneNumber
+      phoneNumber,
+      submitError
     } = this.state;
     return (
       <div className="VendorSignUp">
         VendorSignUp.js
-        <h1>Hello, {hello || "..."}</h1>
         <form onSubmit={this.handleSubmit}>
           <TextInput
             id="firstName"
@@ -91,6 +121,7 @@ class VendorSignUp extends Component {
           />
           <ComboBox id="candySpecialty" handleChange={this.handleSelect} />
           <input type="submit" value="Submit" />
+          <h5>{submitError}</h5>
         </form>
       </div>
     );
